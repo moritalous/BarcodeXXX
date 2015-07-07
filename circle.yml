@@ -1,0 +1,25 @@
+general:
+  artifacts:
+    - "app/build/outputs/apk/*.apk"
+
+machine:
+  environment:
+    ANDROID_HOME: /usr/local/android-sdk-linux
+    GRADLE_OPTS: -Xmx1024m
+
+dependencies:
+  post:
+    - echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-22.0.1,extra-android-support,extra-google-m2repository,extra-android-m2repository"
+
+test:
+  override:
+    - echo "Nothing to do here"
+
+deployment:
+  master:
+    branch: master
+    commands:
+    - ./gradlew assemblePokemonDebug
+    - curl -F "file=@app/build/outputs/apk/app-pokemonDebug-debug-unaligned.apk" -F "token=${DEPLOY_GATE_API_KEY}" -F "message=test" https://deploygate.com/api/users/${DEPLOY_GATE_USERNAME}/apps
+    - ./gradlew assembleYokaiDebug
+    - curl -F "file=@app/build/outputs/apk/app-yokaiDebug-debug-unaligned.apk" -F "token=${DEPLOY_GATE_API_KEY}" -F "message=test" https://deploygate.com/api/users/${DEPLOY_GATE_USERNAME}/apps
