@@ -1,13 +1,9 @@
 package forest.rice.field.k.barcodexxx.ui;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import forest.rice.field.k.barcodexxx.R;
 
@@ -17,6 +13,67 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        /*
+//        Forebase初期化
+//         */
+//        Firebase.setAndroidContext(this);
+//        Firebase myFirebaseRef = new Firebase("https://barcodepokemon.firebaseio.com/");
+//
+//        /*
+//        DB値取得
+//         */
+//        myFirebaseRef.child("Pokemon").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                PokemonFirebaseDB.pokeDic = dataSnapshot.getValue(PokemonFirebaseDB.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//            }
+//        });
+//
+//        Query queryRef = myFirebaseRef.child("Pokemon").orderByChild("No");
+//        queryRef.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                Pokemon p = dataSnapshot.getValue(Pokemon.class);
+//                System.out.println(p.getName());
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//
+//            }
+//        });
+
+
+//        PokemonFirebaseDB pokeDic = new PokemonFirebaseDB();
+//
+//        Pokemon pokemon = new Pokemon();
+////        pokemon.setNo("1");
+////        pokemon.setName("ポケモン１");
+////        pokemon.setImageUrlMedium("");
+//        pokeDic.add(pokemon);
+//
+//        myFirebaseRef.child("Pokemon").setValue(pokeDic);
+
     }
 
 
