@@ -3,6 +3,7 @@ package forest.rice.field.k.barcodexxx.ui.captor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,36 +40,24 @@ public class CaptorResultActivity extends AppCompatActivity {
         }
 
         List<Integer> captorPokemonNo = new ArrayList<>();
-//        int numCode = Integer.parseInt(code);
-        Double numCode =  Double.parseDouble(code);
+        Double numCode = Double.parseDouble(code);
 
-        int count = (int)(numCode % 10) + 1;
+        int count = (int) (numCode % 10) + 1;
 
-        for(int i = 0; i < count; i++) {
-            int tmpCode = (int)((numCode + (count* i)) % 719) + 1;
+        for (int i = 0; i < count; i++) {
+            int tmpCode = (int) ((numCode + (count * i)) % 719) + 1;
             captorPokemonNo.add(tmpCode);
         }
 
+        TextView textview = (TextView) findViewById(R.id.text);
+        textview.setText(String.format("%dひきつかまえたよ", count));
 
 
         new CaptorAsyncTaks().execute(captorPokemonNo);
 
-//        ArrayList<String> pokemonList = new ArrayList<>();
-//        pokemonList.add("001");
-//        pokemonList.add("002");
-//        pokemonList.add("003");
-
     }
 
-//    @Subscribe
-//    public void event(Event event) {
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.fragment, PokemonListFragment.newInstance())
-//                .commit();
-//    }
-
-    private class CaptorAsyncTaks extends  AsyncTask<List<Integer>, Integer, HashMap<String, Pokemon>> {
+    private class CaptorAsyncTaks extends AsyncTask<List<Integer>, Integer, HashMap<String, Pokemon>> {
 
         @Override
         protected HashMap<String, Pokemon> doInBackground(List<Integer>... lists) {
@@ -76,22 +65,22 @@ public class CaptorResultActivity extends AppCompatActivity {
 
             DetailRequest request = new DetailRequest();
 
-            for(int i = 0; i < lists[0].size(); i++){
+            for (int i = 0; i < lists[0].size(); i++) {
 
                 int no = lists[0].get(i);
 
                 Pokemon pokemon;
 
-                if(PokemonMap.POKEMON_MAP.containsKey(Integer.toString(no))) {
+                if (PokemonMap.POKEMON_MAP.containsKey(Integer.toString(no))) {
                     pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(no));
                 } else {
                     pokemon = request.requestDetail(no);
-                    if(pokemon != null) {
+                    if (pokemon != null) {
                         db.add(pokemon);
                     }
                 }
 
-                result.put(Integer.toString(i+1), pokemon);
+                result.put(Integer.toString(i + 1), pokemon);
             }
 
             return result;
@@ -99,43 +88,12 @@ public class CaptorResultActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Pokemon> pokemonHashMap) {
-                        getSupportFragmentManager()
+            getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment, PokemonListFragment.newInstance(pokemonHashMap))
                     .commit();
         }
     }
-
-
-
-//    private class AsyncTask extends android.os.AsyncTask<String, String, String> {
-//
-//        @Override
-//        protected String doInBackground(String... strings) {
-//
-//            DetailRequest request = new DetailRequest();
-//            Pokemon pokemon = request.requestDetail(50);
-//            db.add(pokemon);
-//
-////                DetailRequest request = new DetailRequest();
-////                Pokemon pokemon = request.requestDetail(3);
-////
-////                db.add(pokemon);
-//
-//
-//            System.out.println(pokemon.getName());
-//
-//            return "";
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.fragment, PokemonListFragment.newInstance())
-//                    .commit();
-//        }
-//    }
 
 
 }

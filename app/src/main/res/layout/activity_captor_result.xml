@@ -8,8 +8,8 @@
     tools:context="forest.rice.field.k.barcodexxx.ui.zukan2.ZukanActivity">
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="match_parent"
-        android:text="5匹捕まえたよ"
         android:layout_height="wrap_content" />
 
     <FrameLayout

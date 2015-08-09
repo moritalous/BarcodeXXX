@@ -17,15 +17,9 @@ import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final LayoutInflater inflater;
-//    private final List<Pokemon> pokemonList;
     private final HashMap<String, Pokemon> pokemonMap;
     private final RequestManager glideManager;
 
-//    public CaptorResultAdapter(Context context, List<Pokemon> pokemonList) {
-//        this.inflater = LayoutInflater.from(context);
-////        this.pokemonList = pokemonList;
-//        glideManager = Glide.with(context);
-//    }
 
     public CaptorResultAdapter(Context context, HashMap<String, Pokemon> pokemonMap) {
         this.inflater = LayoutInflater.from(context);
@@ -79,8 +73,8 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 //        Pokemon pokemon = pokemonList.get(position);
 
-        Pokemon pokemon = pokemonMap.get(Integer.toString(position+1));
-        if(pokemon != null) {
+        Pokemon pokemon = pokemonMap.get(Integer.toString(position + 1));
+        if (pokemon != null) {
             holder.textView.setText(pokemon.getName());
 
             glideManager
@@ -90,12 +84,7 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
 //                .load(pokemon.getLargeImageUrl())
 //                .placeholder(android.R.drawable.progress_horizontal)
                     .into(holder.imageView);
-
-//        } else {
-//
         }
-
-
     }
 
     /**

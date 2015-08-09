@@ -70,7 +70,7 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Pokemon pokemon;
-        if(PokemonMap.POKEMON_MAP.containsKey(Integer.toString(position+1))) {
+        if (PokemonMap.POKEMON_MAP.containsKey(Integer.toString(position + 1))) {
             pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(position + 1));
 
             holder.textView.setText(pokemon.getName());
@@ -82,8 +82,6 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
 //                .placeholder(android.R.drawable.progress_horizontal)
                     .into(holder.imageView);
         } else {
-//            pokemon = createBlankPokemon();
-
             holder.textView.setText("???");
             holder.imageView.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
         }
@@ -99,12 +97,4 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
         return 719;
     }
 
-//    private Pokemon createBlankPokemon() {
-//        Pokemon pokemon = new Pokemon();
-//        pokemon.setName("000");
-//        pokemon.setName("???");
-//        pokemon.setImageUrl(null);
-//
-//        return pokemon;
-//    }
 }

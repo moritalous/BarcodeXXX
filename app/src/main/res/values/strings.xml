@@ -1,13 +1,6 @@
 <resources>
     <string name="app_name">BarcodeXXX</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_start_scan">StartScanActivity</string>
-    <string name="title_activity_zukan">ZukanActivity</string>
-    <string name="title_activity_recycler">RecyclerActivity</string>
+    <string name="title_activity_zukan">ぽけもんずかん</string>
+    <string name="title_activity_captor">げっとだぜ！！</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_temp">TempActivity</string>
 </resources>
