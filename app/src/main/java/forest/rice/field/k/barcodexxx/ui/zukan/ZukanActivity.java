@@ -14,8 +14,6 @@ import java.util.Collections;
 
 import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.entity.PokemonFirebaseDB;
-import forest.rice.field.k.barcodexxx.event.Event;
-import forest.rice.field.k.barcodexxx.event.Eventbus;
 import forest.rice.field.k.barcodexxx.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.ui.CaptorResultActivity;
 
@@ -29,8 +27,6 @@ public class ZukanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zukan);
-
-        Eventbus.EVENT_BUS.register(Event.SINGLE_VALUE_EVENT);
 
         db = PokemonFirebaseDB.getInstance(this);
 

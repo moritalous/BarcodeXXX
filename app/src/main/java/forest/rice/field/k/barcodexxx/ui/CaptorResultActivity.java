@@ -12,8 +12,6 @@ import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
-import forest.rice.field.k.barcodexxx.event.Event;
-import forest.rice.field.k.barcodexxx.event.Eventbus;
 import forest.rice.field.k.barcodexxx.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.net.DetailRequest;
 
@@ -52,8 +50,6 @@ public class CaptorResultActivity extends AppCompatActivity {
         }
 
 
-
-        Eventbus.EVENT_BUS.register(Event.SINGLE_VALUE_EVENT);
 
         new CaptorAsyncTaks().execute(captorPokemonNo);
 
