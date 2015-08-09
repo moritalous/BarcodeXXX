@@ -9,7 +9,7 @@ import android.widget.ListView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
-import java.util.List;
+import java.util.HashMap;
 
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
@@ -17,12 +17,19 @@ import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final LayoutInflater inflater;
-    private final List<Pokemon> pokemonList;
+//    private final List<Pokemon> pokemonList;
+    private final HashMap<String, Pokemon> pokemonMap;
     private final RequestManager glideManager;
 
-    public CaptorResultAdapter(Context context, List<Pokemon> pokemonList) {
+//    public CaptorResultAdapter(Context context, List<Pokemon> pokemonList) {
+//        this.inflater = LayoutInflater.from(context);
+////        this.pokemonList = pokemonList;
+//        glideManager = Glide.with(context);
+//    }
+
+    public CaptorResultAdapter(Context context, HashMap<String, Pokemon> pokemonMap) {
         this.inflater = LayoutInflater.from(context);
-        this.pokemonList = pokemonList;
+        this.pokemonMap = pokemonMap;
         glideManager = Glide.with(context);
     }
 
@@ -70,16 +77,25 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Pokemon pokemon = pokemonList.get(position);
-        holder.textView.setText(pokemon.getName());
+//        Pokemon pokemon = pokemonList.get(position);
 
-        glideManager
+        Pokemon pokemon = pokemonMap.get(Integer.toString(position+1));
+        if(pokemon != null) {
+            holder.textView.setText(pokemon.getName());
+
+            glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")
 //                .load(pokemon.getSmallImageUrl())
-                .load(PokemonUtil.getLargeImageUrl(pokemon))
+                    .load(PokemonUtil.getLargeImageUrl(pokemon))
 //                .load(pokemon.getLargeImageUrl())
 //                .placeholder(android.R.drawable.progress_horizontal)
-                .into(holder.imageView);
+                    .into(holder.imageView);
+
+//        } else {
+//
+        }
+
+
     }
 
     /**
@@ -89,6 +105,6 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
      */
     @Override
     public int getItemCount() {
-        return pokemonList.size();
+        return pokemonMap.size();
     }
 }
