@@ -14,8 +14,8 @@ import java.util.Collections;
 
 import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.entity.PokemonFirebaseDB;
-import forest.rice.field.k.barcodexxx.fragment.PokemonListFragment;
-import forest.rice.field.k.barcodexxx.ui.CaptorResultActivity;
+import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
+import forest.rice.field.k.barcodexxx.ui.captor.CaptorResultActivity;
 
 public class ZukanActivity extends AppCompatActivity {
 

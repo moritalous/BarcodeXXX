@@ -1,18 +1,14 @@
-package forest.rice.field.k.barcodexxx.ui;
+package forest.rice.field.k.barcodexxx.ui.scanstart;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.Arrays;
 import java.util.Collections;
-
-import forest.rice.field.k.barcodexxx.R;
 
 public class StartScanActivity extends AppCompatActivity {
 

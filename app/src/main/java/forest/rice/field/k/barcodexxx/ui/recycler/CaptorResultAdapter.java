@@ -1,4 +1,4 @@
-package forest.rice.field.k.barcodexxx.view.recycler;
+package forest.rice.field.k.barcodexxx.ui.recycler;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,20 +9,29 @@ import android.widget.ListView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
+import java.util.HashMap;
+
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
-import forest.rice.field.k.barcodexxx.entity.PokemonMap;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
-public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final LayoutInflater inflater;
+//    private final List<Pokemon> pokemonList;
+    private final HashMap<String, Pokemon> pokemonMap;
     private final RequestManager glideManager;
 
-    public ZukanAdapter(Context context) {
+//    public CaptorResultAdapter(Context context, List<Pokemon> pokemonList) {
+//        this.inflater = LayoutInflater.from(context);
+////        this.pokemonList = pokemonList;
+//        glideManager = Glide.with(context);
+//    }
+
+    public CaptorResultAdapter(Context context, HashMap<String, Pokemon> pokemonMap) {
         this.inflater = LayoutInflater.from(context);
+        this.pokemonMap = pokemonMap;
         glideManager = Glide.with(context);
     }
-
 
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
@@ -68,12 +77,12 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+//        Pokemon pokemon = pokemonList.get(position);
 
-        Pokemon pokemon;
-        if(PokemonMap.POKEMON_MAP.containsKey(Integer.toString(position+1))) {
-            pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(position + 1));
-
+        Pokemon pokemon = pokemonMap.get(Integer.toString(position+1));
+        if(pokemon != null) {
             holder.textView.setText(pokemon.getName());
+
             glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")
 //                .load(pokemon.getSmallImageUrl())
@@ -81,12 +90,12 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
 //                .load(pokemon.getLargeImageUrl())
 //                .placeholder(android.R.drawable.progress_horizontal)
                     .into(holder.imageView);
-        } else {
-//            pokemon = createBlankPokemon();
 
-            holder.textView.setText("???");
-            holder.imageView.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
+//        } else {
+//
         }
+
+
     }
 
     /**
@@ -96,15 +105,6 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
      */
     @Override
     public int getItemCount() {
-        return 719;
+        return pokemonMap.size();
     }
-
-//    private Pokemon createBlankPokemon() {
-//        Pokemon pokemon = new Pokemon();
-//        pokemon.setName("000");
-//        pokemon.setName("???");
-//        pokemon.setImageUrl(null);
-//
-//        return pokemon;
-//    }
 }

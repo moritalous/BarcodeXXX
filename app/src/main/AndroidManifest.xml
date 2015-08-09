@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.StartScanActivity"
+            android:name=".ui.scanstart.StartScanActivity"
             android:label="@string/title_activity_start_scan" />
         <activity
             android:name=".ui.zukan.ZukanActivity"
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.CaptorResultActivity"
+            android:name=".ui.captor.CaptorResultActivity"
             android:label="@string/title_activity_temp">
         </activity>
     </application>

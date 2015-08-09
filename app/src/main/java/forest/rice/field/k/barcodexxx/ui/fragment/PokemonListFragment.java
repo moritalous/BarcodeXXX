@@ -1,4 +1,4 @@
-package forest.rice.field.k.barcodexxx.fragment;
+package forest.rice.field.k.barcodexxx.ui.fragment;
 
 
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import java.util.HashMap;
 
 import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
-import forest.rice.field.k.barcodexxx.view.recycler.CaptorResultAdapter;
-import forest.rice.field.k.barcodexxx.view.recycler.ZukanAdapter;
+import forest.rice.field.k.barcodexxx.ui.recycler.CaptorResultAdapter;
+import forest.rice.field.k.barcodexxx.ui.recycler.ZukanAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

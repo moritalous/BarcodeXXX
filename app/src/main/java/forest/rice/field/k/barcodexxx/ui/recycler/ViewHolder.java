@@ -1,4 +1,4 @@
-package forest.rice.field.k.barcodexxx.view.recycler;
+package forest.rice.field.k.barcodexxx.ui.recycler;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

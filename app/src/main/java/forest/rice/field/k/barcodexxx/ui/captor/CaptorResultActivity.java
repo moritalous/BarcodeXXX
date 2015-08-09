@@ -1,4 +1,4 @@
-package forest.rice.field.k.barcodexxx.ui;
+package forest.rice.field.k.barcodexxx.ui.captor;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
-import forest.rice.field.k.barcodexxx.fragment.PokemonListFragment;
+import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.net.DetailRequest;
 
 public class CaptorResultActivity extends AppCompatActivity {
