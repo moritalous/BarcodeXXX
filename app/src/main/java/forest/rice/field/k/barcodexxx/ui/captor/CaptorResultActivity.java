@@ -11,7 +11,7 @@ import java.util.List;
 
 import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
-import forest.rice.field.k.barcodexxx.entity.PokemonFirebaseDB;
+import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
 import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.net.DetailRequest;

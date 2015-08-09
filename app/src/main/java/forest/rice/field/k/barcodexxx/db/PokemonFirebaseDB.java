@@ -1,4 +1,4 @@
-package forest.rice.field.k.barcodexxx.entity;
+package forest.rice.field.k.barcodexxx.db;
 
 import android.content.Context;
 
@@ -7,7 +7,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 
-import forest.rice.field.k.barcodexxx.db.FirebaseManager;
+import forest.rice.field.k.barcodexxx.entity.Pokemon;
+import forest.rice.field.k.barcodexxx.entity.PokemonMap;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
 public class PokemonFirebaseDB {
@@ -45,23 +46,6 @@ public class PokemonFirebaseDB {
         firebase = FirebaseManager.getInstance(context);//.child(SCHEME_NAME);
         firebase.child(SCHEME_NAME).addChildEventListener(childEventListener);
         firebase.child(SCHEME_NAME).keepSynced(true);
-
-//        firebase.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot data : dataSnapshot.getChildren()) {
-//                    if (data.getKey().equals(SCHEME_NAME)) {
-//                        PokemonMap.POKEMON_MAP = data.getValue(PokemonMap.class);
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-
 
     }
 
