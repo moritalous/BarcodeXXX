@@ -19,4 +19,12 @@ public class PokemonUtil {
     public static String getNoByString(Pokemon pokemon) {
         return Integer.toString(pokemon.getNo());
     }
+
+    public static String getNoByStringWithFormat(Pokemon pokemon) {
+        return  String.format("No.%03d", pokemon.getNo());
+    }
+
+    public static String getNoByStringWithFormat(int no) {
+        return  String.format("No.%03d", no);
+    }
 }

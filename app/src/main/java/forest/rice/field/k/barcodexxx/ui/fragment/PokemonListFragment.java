@@ -61,7 +61,6 @@ public class PokemonListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mPokemonNoList = getArguments().getStringArrayList(ARG_PARAM1);
             mPokemonMap = (HashMap<String, Pokemon>) getArguments().getSerializable(ARG_PARAM1);
         }
     }
@@ -85,6 +84,5 @@ public class PokemonListFragment extends Fragment {
 
         return view;
     }
-
 
 }

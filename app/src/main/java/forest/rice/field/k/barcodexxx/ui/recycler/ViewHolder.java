@@ -11,12 +11,14 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     public static final int LAYOUT_ID = R.layout.recycler_row;
 
-    public final TextView textView;
+    public final TextView noTextView;
     public final ImageView imageView;
+    public final TextView nameTextView;
 
     public ViewHolder(View itemView) {
         super(itemView);
-        textView = (TextView)itemView.findViewById(R.id.text);
+        noTextView = (TextView)itemView.findViewById(R.id.text_no);
         imageView = (ImageView)itemView.findViewById(R.id.image_view);
+        nameTextView = (TextView)itemView.findViewById(R.id.text_name);
     }
 }

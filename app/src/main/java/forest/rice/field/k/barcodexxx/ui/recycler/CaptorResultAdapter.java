@@ -75,7 +75,8 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         Pokemon pokemon = pokemonMap.get(Integer.toString(position + 1));
         if (pokemon != null) {
-            holder.textView.setText(pokemon.getName());
+            holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(pokemon));
+            holder.nameTextView.setText(pokemon.getName());
 
             glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")

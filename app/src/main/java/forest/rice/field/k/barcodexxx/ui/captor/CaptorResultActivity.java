@@ -27,6 +27,8 @@ public class CaptorResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_captor_result);
 
+
+
         db = PokemonFirebaseDB.getInstance(this);
 
         String code;
@@ -49,7 +51,7 @@ public class CaptorResultActivity extends AppCompatActivity {
             captorPokemonNo.add(tmpCode);
         }
 
-        TextView textview = (TextView) findViewById(R.id.text);
+        TextView textview = (TextView) findViewById(R.id.text_name);
         textview.setText(String.format("%dひきつかまえたよ", count));
 
 

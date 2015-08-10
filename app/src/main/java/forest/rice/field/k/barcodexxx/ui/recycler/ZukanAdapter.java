@@ -3,6 +3,7 @@ package forest.rice.field.k.barcodexxx.ui.recycler;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
@@ -73,7 +74,8 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
         if (PokemonMap.POKEMON_MAP.containsKey(Integer.toString(position + 1))) {
             pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(position + 1));
 
-            holder.textView.setText(pokemon.getName());
+            holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(pokemon));
+            holder.nameTextView.setText(pokemon.getName());
             glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")
 //                .load(pokemon.getSmallImageUrl())
@@ -81,9 +83,12 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
 //                .load(pokemon.getLargeImageUrl())
 //                .placeholder(android.R.drawable.progress_horizontal)
                     .into(holder.imageView);
+            holder.imageView.setVisibility(View.VISIBLE);
         } else {
-            holder.textView.setText("???");
+            holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(position+1));
+            holder.nameTextView.setText("???");
             holder.imageView.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
+            holder.imageView.setVisibility(View.GONE);
         }
     }
 
