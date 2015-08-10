@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -29,13 +30,14 @@ public class ZukanActivity extends AppCompatActivity {
 
         db = PokemonFirebaseDB.getInstance(this);
 
-//        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
 
 //        ActionBar actionbar = getSupportActionBar();
 //        if (actionbar != null) {
 //            actionbar.setHideOnContentScrollEnabled(true);
 //            actionbar.setShowHideAnimationEnabled(true);
 //        }
+
 
         FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.fab);
         actionButton.setOnClickListener(new View.OnClickListener() {
