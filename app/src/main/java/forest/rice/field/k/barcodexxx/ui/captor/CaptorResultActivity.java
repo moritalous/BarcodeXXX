@@ -78,7 +78,7 @@ public class CaptorResultActivity extends AppCompatActivity {
 
                 if (PokemonMap.POKEMON_MAP.containsKey(Integer.toString(no))) {
                     pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(no));
-                    if (pokemon.getCaptorId().isEmpty()) {
+                    if (pokemon.getCaptorId() == null || pokemon.getCaptorId().isEmpty()) {
                         String myCaptorId = CaptorUtil.getMyCaptorId(activity);
                         pokemon.setCaptorId(myCaptorId);
                         db.add(pokemon);
@@ -103,6 +103,4 @@ public class CaptorResultActivity extends AppCompatActivity {
                     .commit();
         }
     }
-
-
 }

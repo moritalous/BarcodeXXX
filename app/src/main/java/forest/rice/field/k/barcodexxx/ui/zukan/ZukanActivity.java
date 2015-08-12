@@ -45,11 +45,6 @@ public class ZukanActivity extends AppCompatActivity {
                 onClickFab();
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         // 初回のデータ取得をちょっとだけ待つ
         try {
