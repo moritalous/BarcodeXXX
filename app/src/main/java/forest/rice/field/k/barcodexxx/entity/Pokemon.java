@@ -5,6 +5,7 @@ public class Pokemon {
     private int no;
     private String name;
     private String imageUrl;
+    private String captorId;
 
     public int getNo() {
         return no;
@@ -28,5 +29,13 @@ public class Pokemon {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getCaptorId() {
+        return captorId;
+    }
+
+    public void setCaptorId(String captorId) {
+        this.captorId = captorId;
     }
 }

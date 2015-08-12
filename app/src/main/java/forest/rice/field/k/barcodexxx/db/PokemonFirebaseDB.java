@@ -42,7 +42,6 @@ public class PokemonFirebaseDB {
 
     private void initFirebaseDB(Context context) {
 
-        Firebase.getDefaultConfig().setPersistenceEnabled(true);
         firebase = FirebaseManager.getInstance(context);//.child(SCHEME_NAME);
         firebase.child(SCHEME_NAME).addChildEventListener(childEventListener);
         firebase.child(SCHEME_NAME).keepSynced(true);

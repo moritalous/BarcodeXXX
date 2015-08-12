@@ -15,6 +15,7 @@ import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
 import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.net.DetailRequest;
+import forest.rice.field.k.barcodexxx.util.CaptorUtil;
 
 public class CaptorResultActivity extends AppCompatActivity {
 
@@ -22,12 +23,14 @@ public class CaptorResultActivity extends AppCompatActivity {
 
     private static PokemonFirebaseDB db = null;
 
+    private CaptorResultActivity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_captor_result);
 
-
+        activity = this;
 
         db = PokemonFirebaseDB.getInstance(this);
 
@@ -75,13 +78,17 @@ public class CaptorResultActivity extends AppCompatActivity {
 
                 if (PokemonMap.POKEMON_MAP.containsKey(Integer.toString(no))) {
                     pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(no));
+                    if (pokemon.getCaptorId().isEmpty()) {
+                        String myCaptorId = CaptorUtil.getMyCaptorId(activity);
+                        pokemon.setCaptorId(myCaptorId);
+                        db.add(pokemon);
+                    }
                 } else {
                     pokemon = request.requestDetail(no);
                     if (pokemon != null) {
                         db.add(pokemon);
                     }
                 }
-
                 result.put(Integer.toString(i + 1), pokemon);
             }
 

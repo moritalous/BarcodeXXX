@@ -12,6 +12,7 @@ import com.bumptech.glide.RequestManager;
 
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
+import forest.rice.field.k.barcodexxx.util.CaptorUtil;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
 public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
@@ -75,7 +76,7 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
             pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(position + 1));
 
             holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(pokemon));
-            holder.nameTextView.setText(pokemon.getName());
+
             glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")
 //                .load(pokemon.getSmallImageUrl())
@@ -84,6 +85,13 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
 //                .placeholder(android.R.drawable.progress_horizontal)
                     .into(holder.imageView);
             holder.imageView.setVisibility(View.VISIBLE);
+
+            if(pokemon.getCaptorId() != null && pokemon.getCaptorId().equals(CaptorUtil.MY_CAPTOR_ID)) {
+                holder.nameTextView.setText("きみの" + pokemon.getName());
+            } else {
+                holder.nameTextView.setText(pokemon.getName());
+            }
+
         } else {
             holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(position+1));
             holder.nameTextView.setText("???");

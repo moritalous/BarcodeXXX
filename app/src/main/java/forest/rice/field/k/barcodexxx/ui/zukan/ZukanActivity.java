@@ -14,30 +14,29 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import forest.rice.field.k.barcodexxx.R;
+import forest.rice.field.k.barcodexxx.db.CaptorFirebaseDB;
 import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.ui.captor.CaptorResultActivity;
 import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
+import forest.rice.field.k.barcodexxx.util.CaptorUtil;
 
 public class ZukanActivity extends AppCompatActivity {
 
-    private static PokemonFirebaseDB db = null;
+    private static PokemonFirebaseDB pokemonDb = null;
+    private static CaptorFirebaseDB captorDb = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        supportRequestWindowFeature(WindowCompat.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_zukan);
 
-        db = PokemonFirebaseDB.getInstance(this);
+        pokemonDb = PokemonFirebaseDB.getInstance(this);
+        captorDb = CaptorFirebaseDB.getInstance(this);
 
-        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+        initUserId();
 
-//        ActionBar actionbar = getSupportActionBar();
-//        if (actionbar != null) {
-//            actionbar.setHideOnContentScrollEnabled(true);
-//            actionbar.setShowHideAnimationEnabled(true);
-//        }
-
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.fab);
         actionButton.setOnClickListener(new View.OnClickListener() {
@@ -84,5 +83,9 @@ public class ZukanActivity extends AppCompatActivity {
     private void onClickFab() {
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
         intentIntegrator.initiateScan(Collections.unmodifiableList(Arrays.asList("EAN_13", "QR_CODE")));
+    }
+
+    private void initUserId() {
+        CaptorUtil.getMyCaptorId(this);
     }
 }

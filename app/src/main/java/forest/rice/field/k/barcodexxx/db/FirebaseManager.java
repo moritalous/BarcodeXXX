@@ -16,6 +16,7 @@ public class FirebaseManager {
             return firebase;
         }
 
+        Firebase.getDefaultConfig().setPersistenceEnabled(true);
         Firebase.setAndroidContext(context);
         firebase = new Firebase("https://barcodepokemon.firebaseio.com/");
 
