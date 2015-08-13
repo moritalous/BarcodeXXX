@@ -87,9 +87,6 @@ public class ZukanActivity extends AppCompatActivity {
     private void initUserId() {
 
         String myCaptorId = CaptorUtil.getMyCaptorId(this);
-        String myCaptorName = CaptorMap.CAPTOR.get(myCaptorId).getCaptorName();
-
-        Toast.makeText(ZukanActivity.this, myCaptorName + " こんにちは", Toast.LENGTH_LONG).show();
-
+        
     }
 }

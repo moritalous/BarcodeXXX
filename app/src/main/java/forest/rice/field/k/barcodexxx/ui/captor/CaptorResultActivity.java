@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import forest.rice.field.k.barcodexxx.R;
+import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
@@ -54,7 +55,7 @@ public class CaptorResultActivity extends AppCompatActivity {
         }
 
         TextView textview = (TextView) findViewById(R.id.text_name);
-        textview.setText(String.format("%dひきゲットだぜ！！！", count));
+        textview.setText(String.format("%sが%dひきゲットだぜ！！！", CaptorMap.CAPTOR.get(CaptorUtil.MY_CAPTOR_ID).getCaptorName(), count));
 
 
         new CaptorAsyncTaks().execute(captorPokemonNo);
