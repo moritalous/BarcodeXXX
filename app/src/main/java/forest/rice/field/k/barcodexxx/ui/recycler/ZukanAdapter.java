@@ -10,6 +10,8 @@ import android.widget.ListView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
+import forest.rice.field.k.barcodexxx.entity.Captor;
+import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
@@ -86,14 +88,21 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
                     .into(holder.imageView);
             holder.imageView.setVisibility(View.VISIBLE);
 
-            if(pokemon.getCaptorId() != null && pokemon.getCaptorId().equals(CaptorUtil.MY_CAPTOR_ID)) {
-                holder.nameTextView.setText("きみの" + pokemon.getName());
-            } else {
+            Captor captor = CaptorMap.CAPTOR.get(pokemon.getCaptorId());
+            if (captor == null) {
                 holder.nameTextView.setText(pokemon.getName());
+            } else {
+                holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
             }
 
+//            if(pokemon.getCaptorId() != null && pokemon.getCaptorId().equals(CaptorUtil.MY_CAPTOR_ID)) {
+//                holder.nameTextView.setText("きみの" + pokemon.getName());
+//            } else {
+//                holder.nameTextView.setText(pokemon.getName());
+//            }
+
         } else {
-            holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(position+1));
+            holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(position + 1));
             holder.nameTextView.setText("???");
             holder.imageView.setImageResource(android.R.drawable.ic_menu_close_clear_cancel);
             holder.imageView.setVisibility(View.GONE);

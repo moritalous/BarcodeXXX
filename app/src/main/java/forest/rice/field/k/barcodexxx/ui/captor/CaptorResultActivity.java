@@ -31,7 +31,6 @@ public class CaptorResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_captor_result);
 
         activity = this;
-
         db = PokemonFirebaseDB.getInstance(this);
 
         String code;
@@ -55,7 +54,7 @@ public class CaptorResultActivity extends AppCompatActivity {
         }
 
         TextView textview = (TextView) findViewById(R.id.text_name);
-        textview.setText(String.format("%dひきつかまえたよ", count));
+        textview.setText(String.format("%dひきゲットだぜ！！！", count));
 
 
         new CaptorAsyncTaks().execute(captorPokemonNo);
@@ -75,23 +74,23 @@ public class CaptorResultActivity extends AppCompatActivity {
                 int no = lists[0].get(i);
 
                 Pokemon pokemon;
+                String myCaptorId = CaptorUtil.getMyCaptorId(activity);
 
                 if (PokemonMap.POKEMON_MAP.containsKey(Integer.toString(no))) {
                     pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(no));
                     if (pokemon.getCaptorId() == null || pokemon.getCaptorId().isEmpty()) {
-                        String myCaptorId = CaptorUtil.getMyCaptorId(activity);
                         pokemon.setCaptorId(myCaptorId);
                         db.add(pokemon);
                     }
                 } else {
                     pokemon = request.requestDetail(no);
+                    pokemon.setCaptorId(myCaptorId);
                     if (pokemon != null) {
                         db.add(pokemon);
                     }
                 }
                 result.put(Integer.toString(i + 1), pokemon);
             }
-
             return result;
         }
 

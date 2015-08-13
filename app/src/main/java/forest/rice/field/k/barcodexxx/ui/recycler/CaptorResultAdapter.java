@@ -11,7 +11,10 @@ import com.bumptech.glide.RequestManager;
 
 import java.util.HashMap;
 
+import forest.rice.field.k.barcodexxx.entity.Captor;
+import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
+import forest.rice.field.k.barcodexxx.util.CaptorUtil;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
 public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
@@ -71,12 +74,16 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        Pokemon pokemon = pokemonList.get(position);
-
         Pokemon pokemon = pokemonMap.get(Integer.toString(position + 1));
         if (pokemon != null) {
             holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(pokemon));
-            holder.nameTextView.setText(pokemon.getName());
+
+            Captor captor = CaptorMap.CAPTOR.get(pokemon.getCaptorId());
+            if (captor == null) {
+                holder.nameTextView.setText(pokemon.getName());
+            } else {
+                holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
+            }
 
             glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")

@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -16,6 +17,7 @@ import java.util.Collections;
 import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.db.CaptorFirebaseDB;
 import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
+import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.ui.captor.CaptorResultActivity;
 import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
@@ -34,7 +36,7 @@ public class ZukanActivity extends AppCompatActivity {
         pokemonDb = PokemonFirebaseDB.getInstance(this);
         captorDb = CaptorFirebaseDB.getInstance(this);
 
-        initUserId();
+
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
@@ -51,6 +53,8 @@ public class ZukanActivity extends AppCompatActivity {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
         }
+
+        initUserId();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -81,6 +85,11 @@ public class ZukanActivity extends AppCompatActivity {
     }
 
     private void initUserId() {
-        CaptorUtil.getMyCaptorId(this);
+
+        String myCaptorId = CaptorUtil.getMyCaptorId(this);
+        String myCaptorName = CaptorMap.CAPTOR.get(myCaptorId).getCaptorName();
+
+        Toast.makeText(ZukanActivity.this, myCaptorName + " こんにちは", Toast.LENGTH_LONG).show();
+
     }
 }
