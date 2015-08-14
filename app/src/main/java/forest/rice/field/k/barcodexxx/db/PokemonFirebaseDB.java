@@ -19,10 +19,6 @@ public class PokemonFirebaseDB {
 
     private static PokemonFirebaseDB pokeDic = null;
 
-    public PokemonFirebaseDB() {
-
-    }
-
     private PokemonFirebaseDB(Context context) {
         initFirebaseDB(context);
     }
@@ -52,7 +48,6 @@ public class PokemonFirebaseDB {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Pokemon pokemon = dataSnapshot.getValue(Pokemon.class);
-
             PokemonMap.POKEMON_MAP.put(PokemonUtil.getNoByString(pokemon), pokemon);
         }
 

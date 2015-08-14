@@ -2,5 +2,9 @@
     <string name="app_name">バコポケ2015</string>
     <string name="title_activity_zukan">ぽけもんずかん</string>
     <string name="title_activity_captor">げっとだぜ！！</string>
+    <string name="title_activity_ranking">RankingActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

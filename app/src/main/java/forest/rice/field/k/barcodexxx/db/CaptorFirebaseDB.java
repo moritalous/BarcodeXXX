@@ -18,16 +18,12 @@ public class CaptorFirebaseDB {
 
     private static CaptorFirebaseDB db = null;
 
-    public CaptorFirebaseDB() {
-
-    }
-
     private CaptorFirebaseDB(Context context) {
         initFirebaseDB(context);
     }
 
     public static CaptorFirebaseDB getInstance(Context context) {
-        if(db != null) {
+        if (db != null) {
             return db;
         }
         db = new CaptorFirebaseDB(context);
@@ -54,7 +50,8 @@ public class CaptorFirebaseDB {
 
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+            Captor captor = dataSnapshot.getValue(Captor.class);
+            CaptorMap.CAPTOR.put(captor.getCaptorId(), captor);
         }
 
         @Override
