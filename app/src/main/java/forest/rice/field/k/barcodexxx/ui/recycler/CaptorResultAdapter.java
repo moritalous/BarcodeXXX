@@ -3,6 +3,7 @@ package forest.rice.field.k.barcodexxx.ui.recycler;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import forest.rice.field.k.barcodexxx.entity.Captor;
 import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
+import forest.rice.field.k.barcodexxx.entity.PokemonNew;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
@@ -83,6 +85,12 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
                 holder.nameTextView.setText(pokemon.getName());
             } else {
                 holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
+            }
+
+            if (pokemon instanceof PokemonNew) {
+                holder.newTextView.setVisibility(View.VISIBLE);
+            } else {
+                holder.newTextView.setVisibility(View.GONE);
             }
 
             glideManager

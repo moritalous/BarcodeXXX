@@ -5,13 +5,13 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-import forest.rice.field.k.barcodexxx.entity.Pokemon;
+import forest.rice.field.k.barcodexxx.entity.PokemonNew;
 
 public class DetailRequest {
 
     private static final String baseUrl = "http://www.pokemon.jp/zukan/detail/%03d.html";
 
-    public Pokemon requestDetail(int no) {
+    public PokemonNew requestDetail(int no) {
 
         Document document;
         try {
@@ -29,8 +29,8 @@ public class DetailRequest {
         return String.format(baseUrl, no);
     }
 
-    private Pokemon createPokemon(Document document) {
-        Pokemon pokemon = new Pokemon();
+    private PokemonNew createPokemon(Document document) {
+        PokemonNew pokemon = new PokemonNew();
 
         String no = document.getElementsByClass("pokemon-page").get(0).getElementsByClass("num").get(0).text();
 

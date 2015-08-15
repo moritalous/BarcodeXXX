@@ -16,6 +16,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public final ImageView imageView;
     public final TextView nameTextView;
     public final CardView cardView;
+    public final TextView newTextView;
 
     public ViewHolder(View itemView) {
         super(itemView);
@@ -23,5 +24,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         imageView = (ImageView)itemView.findViewById(R.id.image_view);
         nameTextView = (TextView)itemView.findViewById(R.id.text_name);
         cardView = (CardView)itemView.findViewById(R.id.card_view);
+        newTextView = (TextView)itemView.findViewById(R.id.text_new);
     }
 }
