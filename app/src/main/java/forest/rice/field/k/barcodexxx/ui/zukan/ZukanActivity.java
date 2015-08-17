@@ -18,9 +18,10 @@ import java.util.Collections;
 import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.db.CaptorFirebaseDB;
 import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
-import forest.rice.field.k.barcodexxx.ui.RankingActivity;
+import forest.rice.field.k.barcodexxx.ui.ranking.RankingActivity;
 import forest.rice.field.k.barcodexxx.ui.captor.CaptorResultActivity;
 import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
+import forest.rice.field.k.barcodexxx.ui.setting.SettingActivity;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
 
 public class ZukanActivity extends AppCompatActivity {
@@ -64,13 +65,30 @@ public class ZukanActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("ランキング");
+        menu.add("設定");
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(getApplicationContext(), RankingActivity.class);
-        startActivity(intent);
+
+        switch (item.getTitle().toString()) {
+            case "ランキング": {
+                Intent intent = new Intent(getApplicationContext(), RankingActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case "設定":
+            {
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+                break;
+            default:
+                break;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -99,6 +117,6 @@ public class ZukanActivity extends AppCompatActivity {
     private void initUserId() {
 
         String myCaptorId = CaptorUtil.getMyCaptorId(this);
-        
+
     }
 }

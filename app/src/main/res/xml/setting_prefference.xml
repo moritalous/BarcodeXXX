@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="captor_category"
+        android:title="ユーザー設定">
+
+        <forest.rice.field.k.barcodexxx.ui.setting.DummyEditTextPreference
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:key="MY-CAPTOR-ID"
+            android:title="ID" />
+
+        <EditTextPreference
+            android:icon="@android:drawable/ic_menu_edit"
+            android:inputType="text"
+            android:key="MY-CAPTOR-NAME"
+            android:minLines="1"
+            android:title="なまえ" />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

@@ -1,4 +1,4 @@
-package forest.rice.field.k.barcodexxx.ui;
+package forest.rice.field.k.barcodexxx.ui.ranking;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +21,6 @@ import forest.rice.field.k.barcodexxx.R;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.Ranking;
 import forest.rice.field.k.barcodexxx.entity.RankingList;
-import forest.rice.field.k.barcodexxx.ui.dummy.DummyContent;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 import forest.rice.field.k.barcodexxx.util.RankingUtil;
 
@@ -64,14 +63,6 @@ public class RankinkgFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-        // TODO: Change Adapter to display your content
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS));
 
         setListAdapter(new MyListArrayAdapter(getActivity(), RankingUtil.getRankingList()));
     }
@@ -146,7 +137,6 @@ public class RankinkgFragment extends ListFragment {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             glideManager = Glide.with(context);
         }
-
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             final GridViewHolder holder;

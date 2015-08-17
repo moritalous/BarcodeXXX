@@ -1,4 +1,4 @@
-package forest.rice.field.k.barcodexxx.ui;
+package forest.rice.field.k.barcodexxx.ui.ranking;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
