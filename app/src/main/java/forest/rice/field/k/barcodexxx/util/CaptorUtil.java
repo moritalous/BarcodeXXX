@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import forest.rice.field.k.barcodexxx.db.CaptorFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.Captor;
-import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 
 public class CaptorUtil {
 
@@ -22,30 +21,16 @@ public class CaptorUtil {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
 
         CaptorFirebaseDB firebaseDB = CaptorFirebaseDB.getInstance(context);
-
-        String myCaptorId = pref.getString(MY_CAPTOR_ID_KEY, null);
-        String myCaptorName;
-        if (myCaptorId == null) {
-            myCaptorId = UUID.randomUUID().toString();
-            myCaptorName = DEFAULT_CAPTOR_NAME;
-
-            Captor captor = new Captor();
-            captor.setCaptorId(myCaptorId);
-            captor.setCaptorName(myCaptorName);
-
-            firebaseDB.add(captor);
-        } else {
-            Captor captor = CaptorMap.CAPTOR.get(myCaptorId);
-            myCaptorName = captor.getCaptorName();
-        }
+        Captor captor = createCaptor(pref);
+        firebaseDB.add(captor);
 
         pref.edit()
-                .putString(MY_CAPTOR_ID_KEY, myCaptorId)
-                .putString(MY_CAPTOR_NAME_KEY, myCaptorName)
+                .putString(MY_CAPTOR_ID_KEY, captor.getCaptorId())
+                .putString(MY_CAPTOR_NAME_KEY, captor.getCaptorName())
                 .apply();
 
-        MY_CAPTOR_ID = myCaptorId;
-        return myCaptorId;
+        MY_CAPTOR_ID = captor.getCaptorId();
+        return MY_CAPTOR_ID;
     }
 
     public static String getCaptorName(Captor captor) {
@@ -65,8 +50,8 @@ public class CaptorUtil {
     }
 
     public static Captor createCaptor(SharedPreferences pref) {
-        String myCaptorId = pref.getString(MY_CAPTOR_ID_KEY, "");
-        String myCaptorName = pref.getString(MY_CAPTOR_NAME_KEY, "");
+        String myCaptorId = pref.getString(MY_CAPTOR_ID_KEY, UUID.randomUUID().toString());
+        String myCaptorName = pref.getString(MY_CAPTOR_NAME_KEY, DEFAULT_CAPTOR_NAME);
 
         Captor captor = new Captor();
         captor.setCaptorId(myCaptorId);
