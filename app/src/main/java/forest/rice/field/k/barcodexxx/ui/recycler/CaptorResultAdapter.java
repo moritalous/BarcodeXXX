@@ -82,7 +82,7 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
 
             Captor captor = CaptorMap.CAPTOR.get(pokemon.getCaptorId());
             if (captor == null) {
-                holder.nameTextView.setText(pokemon.getName());
+                holder.nameTextView.setText("やせいのポケモン\n" + pokemon.getName());
             } else {
                 holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
             }

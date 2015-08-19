@@ -18,6 +18,7 @@ import com.bumptech.glide.RequestManager;
 import java.util.ArrayList;
 
 import forest.rice.field.k.barcodexxx.R;
+import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.Ranking;
 import forest.rice.field.k.barcodexxx.entity.RankingList;
@@ -110,7 +111,7 @@ public class RankinkgFragment extends ListFragment {
             if (item.getCaptor() != null) {
                 holder.textName.setText(item.getCaptor().getCaptorName());
             } else {
-                holder.textName.setText("???");
+                holder.textName.setText("やせいのポケモン");
             }
             holder.textCount.setText(item.getPokemonList().size() + "ひき");
 
@@ -155,13 +156,19 @@ public class RankinkgFragment extends ListFragment {
 
             Pokemon item = getItem(position);
 
+            if("".equals(item.getCaptorId())) {
+                item.setCaptorId(null);
+                PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(getActivity());
+                db.add(item);
+            }
+
             glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")
 //                .load(pokemon.getSmallImageUrl())
                     .load(PokemonUtil.getSmallImageUrl(item))
 //                .load(pokemon.getLargeImageUrl())
 //                .placeholder(android.R.drawable.progress_horizontal)
-                    .into(holder.imageView);
+                        .into(holder.imageView);
             holder.imageView.setVisibility(View.VISIBLE);
 
 

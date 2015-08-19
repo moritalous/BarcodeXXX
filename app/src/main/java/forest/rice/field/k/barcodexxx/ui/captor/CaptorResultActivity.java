@@ -34,6 +34,8 @@ public class CaptorResultActivity extends AppCompatActivity {
         activity = this;
         db = PokemonFirebaseDB.getInstance(this);
 
+        TextView textview = (TextView) findViewById(R.id.text_name);
+
         String code;
         if (savedInstanceState == null) {
             code = getIntent().getStringExtra(EXTRA_CODE);
@@ -47,22 +49,33 @@ public class CaptorResultActivity extends AppCompatActivity {
         List<Integer> captorPokemonNo = new ArrayList<>();
         Double numCode = Double.parseDouble(code);
 
+        boolean isFlee = CaptorUtil.isFlee();
         int count = (int) (numCode % 10) + 1;
 
-        for (int i = 0; i < count; i++) {
-            int tmpCode = (int) ((numCode + (count * i)) % 719) + 1;
-            captorPokemonNo.add(tmpCode);
+        if (isFlee) {
+            captorPokemonNo = CaptorUtil.createFleePokemonNo(count);
+            textview.setText(String.format("ポケモンが%dひき逃げ出した！！！", count));
+        } else {
+            for (int i = 0; i < count; i++) {
+                int tmpCode = (int) ((numCode + (count * i)) % 719) + 1;
+                captorPokemonNo.add(tmpCode);
+            }
+            textview.setText(String.format("%sが%dひきゲットだぜ！！！", CaptorMap.CAPTOR.get(CaptorUtil.MY_CAPTOR_ID).getCaptorName(), count));
         }
 
-        TextView textview = (TextView) findViewById(R.id.text_name);
-        textview.setText(String.format("%sが%dひきゲットだぜ！！！", CaptorMap.CAPTOR.get(CaptorUtil.MY_CAPTOR_ID).getCaptorName(), count));
-
-
-        new CaptorAsyncTaks().execute(captorPokemonNo);
+        CaptorAsyncTaks task = new CaptorAsyncTaks();
+        task.setFlee(isFlee);
+        task.execute(captorPokemonNo);
 
     }
 
     private class CaptorAsyncTaks extends AsyncTask<List<Integer>, Integer, HashMap<String, Pokemon>> {
+
+        private boolean isFlee = false;
+
+        public void setFlee(boolean isFlee) {
+            this.isFlee = isFlee;
+        }
 
         @Override
         protected HashMap<String, Pokemon> doInBackground(List<Integer>... lists) {
@@ -81,6 +94,9 @@ public class CaptorResultActivity extends AppCompatActivity {
                     pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(no));
                     if (pokemon.getCaptorId() == null || pokemon.getCaptorId().isEmpty()) {
                         pokemon.setCaptorId(myCaptorId);
+                        db.add(pokemon);
+                    } else if (isFlee) {
+                        pokemon.setCaptorId(null);
                         db.add(pokemon);
                     }
                 } else {

@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.UUID;
 
 import forest.rice.field.k.barcodexxx.db.CaptorFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.Captor;
+import forest.rice.field.k.barcodexxx.entity.Pokemon;
+import forest.rice.field.k.barcodexxx.entity.PokemonMap;
 
 public class CaptorUtil {
 
@@ -58,4 +62,28 @@ public class CaptorUtil {
         captor.setCaptorName(myCaptorName);
         return captor;
     }
+
+    public static boolean isFlee() {
+        Random random = new Random();
+
+        int num = random.nextInt(10);
+
+        return num < 4;
+    }
+
+    public static ArrayList<Integer> createFleePokemonNo(int count) {
+
+        ArrayList<Integer> pokemonNoList = new ArrayList<>();
+
+        String[] keySet = PokemonMap.POKEMON_MAP.keySet().toArray(new String[0]);
+
+        Random random = new Random();
+        for (int i = 0; i < count; i++) {
+            int no = random.nextInt(keySet.length);
+            Pokemon pokemon = PokemonMap.POKEMON_MAP.get(keySet[no]);
+            pokemonNoList.add(pokemon.getNo());
+        }
+        return pokemonNoList;
+    }
+
 }
