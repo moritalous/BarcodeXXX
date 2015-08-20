@@ -111,7 +111,7 @@ public class ZukanActivity extends AppCompatActivity {
 
     private void onClickFab() {
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.initiateScan(Collections.unmodifiableList(Arrays.asList("EAN_13", "QR_CODE")));
+        intentIntegrator.initiateScan(Collections.unmodifiableList(Arrays.asList("EAN_13", "EAN_8", "UPC_A", "UPC_E")));
     }
 
     private void initUserId() {

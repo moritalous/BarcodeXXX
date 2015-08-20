@@ -50,7 +50,7 @@ public class CaptorResultActivity extends AppCompatActivity {
         Double numCode = Double.parseDouble(code);
 
         boolean isFlee = CaptorUtil.isFlee();
-        int count = (int) (numCode % 10) + 1;
+        int count = isFlee ? 4 : (int) (numCode % 10) + 1;
 
         if (isFlee) {
             captorPokemonNo = CaptorUtil.createFleePokemonNo(count);
@@ -92,11 +92,11 @@ public class CaptorResultActivity extends AppCompatActivity {
 
                 if (PokemonMap.POKEMON_MAP.containsKey(Integer.toString(no))) {
                     pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(no));
-                    if (pokemon.getCaptorId() == null || pokemon.getCaptorId().isEmpty()) {
-                        pokemon.setCaptorId(myCaptorId);
-                        db.add(pokemon);
-                    } else if (isFlee) {
+                    if (isFlee) {
                         pokemon.setCaptorId(null);
+                        db.add(pokemon);
+                    } else if (pokemon.getCaptorId() == null || pokemon.getCaptorId().isEmpty()) {
+                        pokemon.setCaptorId(myCaptorId);
                         db.add(pokemon);
                     }
                 } else {

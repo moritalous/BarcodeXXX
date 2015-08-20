@@ -68,7 +68,7 @@ public class CaptorUtil {
 
         int num = random.nextInt(10);
 
-        return num < 4;
+        return num < 2;
     }
 
     public static ArrayList<Integer> createFleePokemonNo(int count) {
