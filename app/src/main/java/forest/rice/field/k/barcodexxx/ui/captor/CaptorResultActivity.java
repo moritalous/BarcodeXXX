@@ -47,7 +47,15 @@ public class CaptorResultActivity extends AppCompatActivity {
         }
 
         List<Integer> captorPokemonNo = new ArrayList<>();
-        Double numCode = Double.parseDouble(code);
+        double numCode = 0;
+        try {
+            numCode= Double.parseDouble(code);
+        } catch (NumberFormatException e) {
+            char[] charArray = code.toCharArray();
+            for(char c : charArray ) {
+                numCode = numCode + c;
+            }
+        }
 
         boolean isFlee = CaptorUtil.isFlee();
         int count = isFlee ? 4 : (int) (numCode % 10) + 1;

@@ -79,12 +79,11 @@ public class ZukanActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             break;
-            case "設定":
-            {
+            case "設定": {
                 Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
                 startActivity(intent);
             }
-                break;
+            break;
             default:
                 break;
         }
@@ -111,7 +110,7 @@ public class ZukanActivity extends AppCompatActivity {
 
     private void onClickFab() {
         IntentIntegrator intentIntegrator = new IntentIntegrator(this);
-        intentIntegrator.initiateScan(Collections.unmodifiableList(Arrays.asList("EAN_13", "EAN_8", "UPC_A", "UPC_E")));
+        intentIntegrator.initiateScan(Collections.unmodifiableList(Arrays.asList("UPC_A", "UPC_E", "EAN_8", "EAN_13", "RSS_14", "QR_CODE")));
     }
 
     private void initUserId() {

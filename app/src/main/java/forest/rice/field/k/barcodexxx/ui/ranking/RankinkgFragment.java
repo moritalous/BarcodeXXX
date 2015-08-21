@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,9 +66,26 @@ public class RankinkgFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        RankingList rankingList = RankingUtil.getRankingList();
 
-        setListAdapter(new MyListArrayAdapter(getActivity(), RankingUtil.getRankingList()));
+        setActionBar(rankingList);
+
+        setListAdapter(new MyListArrayAdapter(getActivity(), rankingList));
     }
+
+    private void setActionBar(RankingList rankingList) {
+        if(getActivity() instanceof AppCompatActivity) {
+            ActionBar actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            if(actionbar == null) {
+                return;
+            }
+
+            actionbar.setTitle("ランキング");
+            actionbar.setSubtitle(rankingList.getRankingSammaryText());
+
+        }
+    }
+
 
     @Override
     public void onAttach(Activity activity) {
