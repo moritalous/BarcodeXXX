@@ -21,12 +21,14 @@ import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
 public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
 
+    private final Context context;
     private final LayoutInflater inflater;
     private final HashMap<String, Pokemon> pokemonMap;
     private final RequestManager glideManager;
 
 
     public CaptorResultAdapter(Context context, HashMap<String, Pokemon> pokemonMap) {
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.pokemonMap = pokemonMap;
         glideManager = Glide.with(context);
@@ -70,21 +72,47 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
      * (e.g. in a click listener), use {@link ViewHolder#getAdapterPosition()} which will have
      * the updated adapter position.
      *
-     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     * @param holder   The ViewHolder which should bDie updated to represent the contents of the
      *                 item at the given position in the data set.
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Pokemon pokemon = pokemonMap.get(Integer.toString(position + 1));
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final Pokemon pokemon = pokemonMap.get(Integer.toString(position + 1));
         if (pokemon != null) {
             holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(pokemon));
 
-            Captor captor = CaptorMap.CAPTOR.get(pokemon.getCaptorId());
+            final Captor captor = CaptorMap.CAPTOR.get(pokemon.getCaptorId());
             if (captor == null) {
                 holder.nameTextView.setText("やせいのポケモン\n" + pokemon.getName());
+                holder.imageView.setOnClickListener(null);
             } else {
                 holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
+//                holder.imageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        DialogFragment dialogFragment = new DialogFragment(){
+//                            @NonNull
+//                            @Override
+//                            public Dialog onCreateDialog(Bundle savedInstanceState) {
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                                builder.setTitle("よこどりする？");
+//                                builder.setPositiveButton("よこどり！", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                        holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
+//                                        pokemon.setCaptorId(CaptorUtil.MY_CAPTOR_ID);
+//                                        PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(getActivity());
+//                                        db.add(pokemon);
+//                                    }
+//                                });
+//                                builder.setNegativeButton("キャンセル", null);
+//
+//                                return super.onCreateDialog(savedInstanceState);
+//                            }
+//                        };
+//                    }
+//                });
             }
 
             if (pokemon instanceof PokemonNew) {
@@ -112,4 +140,5 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
     public int getItemCount() {
         return pokemonMap.size();
     }
+
 }

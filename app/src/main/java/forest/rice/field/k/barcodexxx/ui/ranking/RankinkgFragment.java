@@ -181,6 +181,12 @@ public class RankinkgFragment extends ListFragment {
                 db.add(item);
             }
 
+//            if("43827afd-bace-4c27-bd92-f8328135cb96".equals(item.getCaptorId())) {
+//                item.setCaptorId("ce0e726a-bef6-4604-82f8-109177faf322");
+//                PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(getActivity());
+//                db.add(item);
+//            }
+
             glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")
 //                .load(pokemon.getSmallImageUrl())

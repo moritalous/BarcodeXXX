@@ -1,6 +1,13 @@
 package forest.rice.field.k.barcodexxx.ui.recycler;
 
-import android.content.Context;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +21,8 @@ import forest.rice.field.k.barcodexxx.entity.Captor;
 import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
+import forest.rice.field.k.barcodexxx.ui.swap.SwapActivity;
+import forest.rice.field.k.barcodexxx.ui.webview.WebviewActivity;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
@@ -21,8 +30,10 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final LayoutInflater inflater;
     private final RequestManager glideManager;
+    private final FragmentActivity context;
 
-    public ZukanAdapter(Context context) {
+    public ZukanAdapter(FragmentActivity context) {
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
         glideManager = Glide.with(context);
     }
@@ -71,9 +82,9 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        Pokemon pokemon;
+        final Pokemon pokemon;
         if (PokemonMap.POKEMON_MAP.containsKey(Integer.toString(position + 1))) {
             pokemon = PokemonMap.POKEMON_MAP.get(Integer.toString(position + 1));
 
@@ -88,19 +99,57 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
                     .into(holder.imageView);
             holder.imageView.setVisibility(View.VISIBLE);
 
-            Captor captor = CaptorMap.CAPTOR.get(pokemon.getCaptorId());
+            holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    context.startActivity(WebviewActivity.createStartIntent(context, pokemon));
+                    return true;
+                }
+            });
+
+            final Captor captor = CaptorMap.CAPTOR.get(pokemon.getCaptorId());
             if (captor == null) {
                 holder.nameTextView.setText(pokemon.getName());
             } else {
                 holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
             }
 
-//            if(pokemon.getCaptorId() != null && pokemon.getCaptorId().equals(CaptorUtil.MY_CAPTOR_ID)) {
-//                holder.nameTextView.setText("きみの" + pokemon.getName());
-//            } else {
-//                holder.nameTextView.setText(pokemon.getName());
-//            }
+            if(captor != null && !CaptorUtil.MY_CAPTOR_ID.equals(captor.getCaptorId())) {
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DialogFragment dialogFragment = new DialogFragment() {
+                            @NonNull
+                            @Override
+                            public Dialog onCreateDialog(Bundle savedInstanceState) {
+                                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
+                                CharSequence[] items = {"こうかん"};
+                                builder.setItems(items, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        switch (i) {
+                                            case 0: {
+                                                Intent intent = SwapActivity.createStartIntent(context, PokemonUtil.getNoByString(pokemon));
+                                                startActivity(intent);
+                                            }
+                                            break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                });
+
+                                return builder.create();
+                            }
+                        };
+
+                        dialogFragment.show(context.getSupportFragmentManager(), "TAG");
+                    }
+                });
+            } else {
+                holder.imageView.setOnClickListener(null);
+            }
         } else {
             holder.noTextView.setText(PokemonUtil.getNoByStringWithFormat(position + 1));
             holder.nameTextView.setText("???");
