@@ -26,6 +26,8 @@ public class PokemonListFragment extends Fragment {
     //    private ArrayList<String> mPokemonNoList;
     private HashMap<String, Pokemon> mPokemonMap;
 
+    private RecyclerView recyclerView;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -71,7 +73,7 @@ public class PokemonListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
         if (mPokemonMap != null && mPokemonMap.size() > 0) {
@@ -82,7 +84,14 @@ public class PokemonListFragment extends Fragment {
             recyclerView.setAdapter(adapter);
         }
 
+
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
 }

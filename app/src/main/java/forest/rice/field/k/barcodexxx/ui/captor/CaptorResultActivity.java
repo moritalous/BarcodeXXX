@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class CaptorResultActivity extends AppCompatActivity {
         }
 
         boolean isFlee = CaptorUtil.isFlee();
-        int count = isFlee ? 4 : (int) (numCode % 10) + 1;
+        int count = isFlee ? 4 : createCaptorCount(numCode);
 
         if (isFlee) {
             captorPokemonNo = CaptorUtil.createFleePokemonNo(count);
@@ -126,5 +127,18 @@ public class CaptorResultActivity extends AppCompatActivity {
                     .replace(R.id.fragment, PokemonListFragment.newInstance(pokemonHashMap))
                     .commit();
         }
+    }
+
+    private int createCaptorCount(double inputNo) {
+        Calendar cal = Calendar.getInstance();
+
+        int year = cal.get(Calendar.YEAR);
+        int dayOfYear = cal.get(Calendar.DAY_OF_YEAR);
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
+        int weekOfYear = cal.get(Calendar.WEEK_OF_YEAR);
+
+        double baseInt = inputNo * (year + dayOfMonth) * dayOfMonth / weekOfYear;
+
+        return (int) (baseInt % 10) + 1;
     }
 }
