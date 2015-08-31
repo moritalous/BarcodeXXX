@@ -48,11 +48,11 @@ public class ZukanActivity extends AppCompatActivity {
             }
         });
 
-        // 初回のデータ取得をちょっとだけ待つ
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-        }
+//        // 初回のデータ取得をちょっとだけ待つ
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//        }
 
         initUserId();
 

@@ -9,6 +9,7 @@ import com.firebase.client.FirebaseError;
 
 import forest.rice.field.k.barcodexxx.entity.Captor;
 import forest.rice.field.k.barcodexxx.entity.CaptorMap;
+import forest.rice.field.k.barcodexxx.eventbus.EventBusManager;
 
 public class CaptorFirebaseDB {
 
@@ -46,12 +47,14 @@ public class CaptorFirebaseDB {
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Captor captor = dataSnapshot.getValue(Captor.class);
             CaptorMap.CAPTOR.put(captor.getCaptorId(), captor);
+            EventBusManager.getEventBus().post(EventBusManager.Event.POKEMON_ADD);
         }
 
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             Captor captor = dataSnapshot.getValue(Captor.class);
             CaptorMap.CAPTOR.put(captor.getCaptorId(), captor);
+            EventBusManager.getEventBus().post(EventBusManager.Event.POKEMON_ADD);
         }
 
         @Override

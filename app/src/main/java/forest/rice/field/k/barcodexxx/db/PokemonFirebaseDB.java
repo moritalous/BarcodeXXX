@@ -9,6 +9,7 @@ import com.firebase.client.FirebaseError;
 
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
+import forest.rice.field.k.barcodexxx.eventbus.EventBusManager;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
 public class PokemonFirebaseDB {
@@ -34,6 +35,7 @@ public class PokemonFirebaseDB {
 
     public void add(Pokemon pokemon) {
         firebase.child(SCHEME_NAME).child(PokemonUtil.getNoByString(pokemon)).setValue(pokemon);
+
     }
 
     private void initFirebaseDB(Context context) {
@@ -49,12 +51,16 @@ public class PokemonFirebaseDB {
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
             Pokemon pokemon = dataSnapshot.getValue(Pokemon.class);
             PokemonMap.POKEMON_MAP.put(PokemonUtil.getNoByString(pokemon), pokemon);
+
+            EventBusManager.getEventBus().post(EventBusManager.Event.POKEMON_ADD);
         }
 
         @Override
         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
             Pokemon pokemon = dataSnapshot.getValue(Pokemon.class);
             PokemonMap.POKEMON_MAP.put(PokemonUtil.getNoByString(pokemon), pokemon);
+
+            EventBusManager.getEventBus().post(EventBusManager.Event.POKEMON_ADD);
         }
 
         @Override

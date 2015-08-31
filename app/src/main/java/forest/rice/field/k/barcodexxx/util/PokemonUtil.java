@@ -1,5 +1,7 @@
 package forest.rice.field.k.barcodexxx.util;
 
+import java.util.Random;
+
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
 
@@ -33,20 +35,43 @@ public class PokemonUtil {
         return String.format("http://www.pokemon.jp/zukan/detail/%03d.html", pokemon.getNo());
     }
 
-    public static PokemonMap filterPokemonMapMine() {
-
+    public static PokemonMap filterPokemonMap(String captorId) {
         PokemonMap map = new PokemonMap();
 
         for (String key : PokemonMap.POKEMON_MAP.keySet()) {
             Pokemon pokemon = PokemonMap.POKEMON_MAP.get(key);
 
-            String captorId = pokemon.getCaptorId();
+            String tmpPaptorId = pokemon.getCaptorId();
 
-            if(CaptorUtil.MY_CAPTOR_ID.equals(captorId)) {
+            if(captorId ==null) {
+                if(tmpPaptorId ==null) {
+                    map.put(key, pokemon);
+                }
+            }
+            else if(captorId.equals(tmpPaptorId)) {
                 map.put(key, pokemon);
             }
         }
-
         return map;
+    }
+
+    public static PokemonMap filterPokemonMapMine() {
+        return  filterPokemonMap(CaptorUtil.MY_CAPTOR_ID);
+    }
+
+    public static PokemonMap filterPokemonMapWild() {
+        return  filterPokemonMap(null);
+    }
+
+    public static Pokemon getWildPokemonByRandom() {
+        return getPokeminByRandom(PokemonUtil.filterPokemonMapWild());
+    }
+
+    public static Pokemon getPokeminByRandom(PokemonMap map) {
+        String[] keySet = map.keySet().toArray(new String[0]);
+
+        Random random = new Random();
+        int no = random.nextInt(keySet.length);
+        return map.get(keySet[no]);
     }
 }

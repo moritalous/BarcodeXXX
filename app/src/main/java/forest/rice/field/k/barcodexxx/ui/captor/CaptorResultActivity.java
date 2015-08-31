@@ -18,6 +18,7 @@ import forest.rice.field.k.barcodexxx.entity.PokemonMap;
 import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.net.DetailRequest;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
+import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
 public class CaptorResultActivity extends AppCompatActivity {
 
@@ -50,10 +51,10 @@ public class CaptorResultActivity extends AppCompatActivity {
         List<Integer> captorPokemonNo = new ArrayList<>();
         double numCode = 0;
         try {
-            numCode= Double.parseDouble(code);
+            numCode = Double.parseDouble(code);
         } catch (NumberFormatException e) {
             char[] charArray = code.toCharArray();
-            for(char c : charArray ) {
+            for (char c : charArray) {
                 numCode = numCode + c;
             }
         }
@@ -69,16 +70,21 @@ public class CaptorResultActivity extends AppCompatActivity {
                 int tmpCode = (int) ((numCode + (count * i)) % 719) + 1;
                 captorPokemonNo.add(tmpCode);
             }
-            textview.setText(String.format("%sが%dひきゲットだぜ！！！", CaptorMap.CAPTOR.get(CaptorUtil.MY_CAPTOR_ID).getCaptorName(), count));
+
+            // やせいポケモンを１匹サービス
+            captorPokemonNo.add(PokemonUtil.getWildPokemonByRandom().getNo());
+
+
+            textview.setText(String.format("%sが%dひきゲットだぜ！！！", CaptorMap.CAPTOR.get(CaptorUtil.MY_CAPTOR_ID).getCaptorName(), count + 1));
         }
 
-        CaptorAsyncTaks task = new CaptorAsyncTaks();
+        CaptorAsyncTask task = new CaptorAsyncTask();
         task.setFlee(isFlee);
         task.execute(captorPokemonNo);
 
     }
 
-    private class CaptorAsyncTaks extends AsyncTask<List<Integer>, Integer, HashMap<String, Pokemon>> {
+    private class CaptorAsyncTask extends AsyncTask<List<Integer>, Integer, HashMap<String, Pokemon>> {
 
         private boolean isFlee = false;
 
