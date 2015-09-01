@@ -2,6 +2,7 @@ package forest.rice.field.k.barcodexxx.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.eventbus.EventBusManager;
 import forest.rice.field.k.barcodexxx.ui.recycler.CaptorResultAdapter;
 import forest.rice.field.k.barcodexxx.ui.recycler.ZukanAdapter;
+import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +36,7 @@ public class PokemonListFragment extends Fragment {
     private HashMap<String, Pokemon> mPokemonMap;
 
     private RecyclerView recyclerView;
+    public static Pokemon strayPokemon;
 
     /**
      * Use this factory method to create a new instance of
@@ -137,8 +140,9 @@ public class PokemonListFragment extends Fragment {
         menuScrollToTop.setIcon(android.R.drawable.arrow_up_float);
         MenuItemCompat.setShowAsAction(menuScrollToTop, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
 
-
-
+        MenuItem menuStray = menu.add("ポケモンをさがせ！");
+        menuStray.setIcon(android.R.drawable.ic_menu_view);
+        MenuItemCompat.setShowAsAction(menuStray, MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
     }
 
     @Override
@@ -150,7 +154,21 @@ public class PokemonListFragment extends Fragment {
             case "toEnd":
                 recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
                 break;
+            case "ポケモンをさがせ！":
+                strayPokemon = PokemonUtil.getWildPokemonByRandom();
 
+                Snackbar.make(getActivity().findViewById(R.id.coordinatorlayout),
+                        String.format("%sをさがせ！", strayPokemon.getName()),
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction("やめる。", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                strayPokemon = null;
+                            }
+                        })
+                        .show();
+
+                break;
         }
 
         return true;

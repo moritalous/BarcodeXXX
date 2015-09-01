@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
@@ -17,10 +18,13 @@ import android.widget.ListView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
+import forest.rice.field.k.barcodexxx.R;
+import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.Captor;
 import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
+import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.ui.swap.SwapActivity;
 import forest.rice.field.k.barcodexxx.ui.webview.WebviewActivity;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
@@ -114,7 +118,26 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
                 holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
             }
 
-            if(captor != null && !CaptorUtil.MY_CAPTOR_ID.equals(captor.getCaptorId())) {
+            // さがせゲーム
+            if(PokemonListFragment.strayPokemon != null && pokemon.getNo() == PokemonListFragment.strayPokemon.getNo()) {
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        pokemon.setCaptorId(CaptorUtil.MY_CAPTOR_ID);
+
+                        Snackbar.make(context.findViewById(R.id.coordinatorlayout),
+                                "ゲットだぜ！",
+                                Snackbar.LENGTH_SHORT)
+                                .show();
+
+                        PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(context);
+                        db.add(pokemon);
+
+                        PokemonListFragment.strayPokemon = null;
+                    }
+                });
+
+            } else if(captor != null && !CaptorUtil.MY_CAPTOR_ID.equals(captor.getCaptorId())) {
                 holder.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
