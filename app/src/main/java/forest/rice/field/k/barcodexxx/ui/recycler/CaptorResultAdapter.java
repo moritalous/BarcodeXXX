@@ -16,6 +16,7 @@ import forest.rice.field.k.barcodexxx.entity.Captor;
 import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.entity.PokemonNew;
+import forest.rice.field.k.barcodexxx.entity.PokemonReGet;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
 import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 
@@ -88,34 +89,13 @@ public class CaptorResultAdapter extends RecyclerView.Adapter<ViewHolder> {
                 holder.imageView.setOnClickListener(null);
             } else {
                 holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
-//                holder.imageView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        DialogFragment dialogFragment = new DialogFragment(){
-//                            @NonNull
-//                            @Override
-//                            public Dialog onCreateDialog(Bundle savedInstanceState) {
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                                builder.setTitle("よこどりする？");
-//                                builder.setPositiveButton("よこどり！", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        holder.nameTextView.setText(CaptorUtil.getCaptorName(captor) + "の\n" + pokemon.getName());
-//                                        pokemon.setCaptorId(CaptorUtil.MY_CAPTOR_ID);
-//                                        PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(getActivity());
-//                                        db.add(pokemon);
-//                                    }
-//                                });
-//                                builder.setNegativeButton("キャンセル", null);
-//
-//                                return super.onCreateDialog(savedInstanceState);
-//                            }
-//                        };
-//                    }
-//                });
             }
 
             if (pokemon instanceof PokemonNew) {
+                holder.newTextView.setText("NEW!!");
+                holder.newTextView.setVisibility(View.VISIBLE);
+            } else if (pokemon instanceof PokemonReGet) {
+                holder.newTextView.setText("ほかく！");
                 holder.newTextView.setVisibility(View.VISIBLE);
             } else {
                 holder.newTextView.setVisibility(View.GONE);

@@ -15,6 +15,7 @@ import forest.rice.field.k.barcodexxx.entity.CaptorMap;
 import forest.rice.field.k.barcodexxx.entity.Pokemon;
 import forest.rice.field.k.barcodexxx.db.PokemonFirebaseDB;
 import forest.rice.field.k.barcodexxx.entity.PokemonMap;
+import forest.rice.field.k.barcodexxx.entity.PokemonReGet;
 import forest.rice.field.k.barcodexxx.ui.fragment.PokemonListFragment;
 import forest.rice.field.k.barcodexxx.net.DetailRequest;
 import forest.rice.field.k.barcodexxx.util.CaptorUtil;
@@ -60,7 +61,7 @@ public class CaptorResultActivity extends AppCompatActivity {
         }
 
         boolean isFlee = CaptorUtil.isFlee();
-        int count = isFlee ? 4 : createCaptorCount(numCode);
+        int count = isFlee ? 4 * 3 : createCaptorCount(numCode) * 2;
 
         if (isFlee) {
             captorPokemonNo = CaptorUtil.createFleePokemonNo(count);
@@ -113,6 +114,8 @@ public class CaptorResultActivity extends AppCompatActivity {
                     } else if (pokemon.getCaptorId() == null || pokemon.getCaptorId().isEmpty()) {
                         pokemon.setCaptorId(myCaptorId);
                         db.add(pokemon);
+
+                        pokemon = PokemonReGet.reGet(pokemon);
                     }
                 } else {
                     pokemon = request.requestDetail(no);
