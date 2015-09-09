@@ -74,9 +74,9 @@ public class RankinkgFragment extends ListFragment {
     }
 
     private void setActionBar(RankingList rankingList) {
-        if(getActivity() instanceof AppCompatActivity) {
+        if (getActivity() instanceof AppCompatActivity) {
             ActionBar actionbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            if(actionbar == null) {
+            if (actionbar == null) {
                 return;
             }
 
@@ -128,9 +128,9 @@ public class RankinkgFragment extends ListFragment {
             Ranking item = getItem(position);
 
             if (item.getCaptor() != null) {
-                holder.textName.setText(item.getCaptor().getCaptorName());
+                holder.textName.setText((position + 1) + "." + item.getCaptor().getCaptorName());
             } else {
-                holder.textName.setText("やせいのポケモン");
+                holder.textName.setText((position + 1) + "." + "やせいのポケモン");
             }
             holder.textCount.setText(item.getPokemonList().size() + "ひき");
 
@@ -157,6 +157,7 @@ public class RankinkgFragment extends ListFragment {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             glideManager = Glide.with(context);
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             final GridViewHolder holder;
@@ -175,17 +176,17 @@ public class RankinkgFragment extends ListFragment {
 
             Pokemon item = getItem(position);
 
-            if("".equals(item.getCaptorId())) {
+            if ("".equals(item.getCaptorId())) {
                 item.setCaptorId(null);
                 PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(getActivity());
                 db.add(item);
             }
 
-//            if("43827afd-bace-4c27-bd92-f8328135cb96".equals(item.getCaptorId())) {
-//                item.setCaptorId("ce0e726a-bef6-4604-82f8-109177faf322");
-//                PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(getActivity());
-//                db.add(item);
-//            }
+            if("2a12cf96-fe1f-4e4b-8bf4-c47754ef14a3".equals(item.getCaptorId())) {
+                item.setCaptorId(null);
+                PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(getActivity());
+                db.add(item);
+            }
 
             glideManager
 //                .load("http://www.pokemon.jp/zukan/images/l/ff08ec6198db300abc91e69605469427.png")
@@ -193,7 +194,7 @@ public class RankinkgFragment extends ListFragment {
                     .load(PokemonUtil.getSmallImageUrl(item))
 //                .load(pokemon.getLargeImageUrl())
 //                .placeholder(android.R.drawable.progress_horizontal)
-                        .into(holder.imageView);
+                    .into(holder.imageView);
             holder.imageView.setVisibility(View.VISIBLE);
 
 

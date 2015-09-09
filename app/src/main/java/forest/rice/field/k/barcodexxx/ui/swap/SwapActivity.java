@@ -24,7 +24,6 @@ import forest.rice.field.k.barcodexxx.util.PokemonUtil;
 public class SwapActivity extends AppCompatActivity {
 
     public static final String EXTRA_SWAP_TARGET_NO = "swap_target_no";
-    private Object mySwapPokemon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,20 +68,20 @@ public class SwapActivity extends AppCompatActivity {
                 String message;
                 int num = new Random().nextInt(4);
                 switch (num) {
-                    case 0: {
-                        // 交換失敗。逃げ出す
-                        message = "こうかんしっぱい！！\r\nきみのポケモンはにげだした";
-                        myPokemon.setCaptorId(null);
-                        db.add(myPokemon);
-                    }
-                    break;
-                    case 1: {
-                        // 交換失敗。奪われる
-                        message = "こうかんしっぱい！！\nきみのポケモンはうばわれた";
-                        myPokemon.setCaptorId(yourCaptorId);
-                        db.add(myPokemon);
-                    }
-                    break;
+//                    case 0: {
+//                        // 交換失敗。逃げ出す
+//                        message = "こうかんしっぱい！！\r\nきみのポケモンはにげだした";
+//                        myPokemon.setCaptorId(null);
+//                        db.add(myPokemon);
+//                    }
+//                    break;
+//                    case 1: {
+//                        // 交換失敗。奪われる
+//                        message = "こうかんしっぱい！！\nきみのポケモンはうばわれた";
+//                        myPokemon.setCaptorId(yourCaptorId);
+//                        db.add(myPokemon);
+//                    }
+//                    break;
                     default: {
                         // 交換成功
                         message = "こうかんせいこう！！";
@@ -111,7 +110,7 @@ public class SwapActivity extends AppCompatActivity {
 
     public Pokemon getMySwapPokemon() {
         PokemonMap map = PokemonUtil.filterPokemonMapMine();
-        String[] keySet = map.keySet().toArray(new String[0]);
+        String[] keySet = map.keySet().toArray(new String[map.keySet().size()]);
 
         Random random = new Random();
         int no = random.nextInt(keySet.length);

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -119,7 +120,7 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
             }
 
             // さがせゲーム
-            if(PokemonListFragment.strayPokemon != null && pokemon.getNo() == PokemonListFragment.strayPokemon.getNo()) {
+            if (PokemonListFragment.strayPokemon != null && pokemon.getNo() == PokemonListFragment.strayPokemon.getNo()) {
                 holder.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -137,7 +138,7 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
                     }
                 });
 
-            } else if(captor != null && !CaptorUtil.MY_CAPTOR_ID.equals(captor.getCaptorId())) {
+            } else if (captor != null && !CaptorUtil.MY_CAPTOR_ID.equals(captor.getCaptorId())) {
                 holder.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -147,14 +148,27 @@ public class ZukanAdapter extends RecyclerView.Adapter<ViewHolder> {
                             public Dialog onCreateDialog(Bundle savedInstanceState) {
                                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-                                CharSequence[] items = {"こうかん"};
+                                CharSequence[] items = {"こうかん", "うばう"};
                                 builder.setItems(items, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         switch (i) {
                                             case 0: {
-                                                Intent intent = SwapActivity.createStartIntent(context, PokemonUtil.getNoByString(pokemon));
-                                                startActivity(intent);
+
+                                                if(PokemonUtil.filterPokemonMapMine().size() == 0) {
+                                                    Toast.makeText(context, "まずはポケモンをつかまえよう", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Intent intent = SwapActivity.createStartIntent(context, PokemonUtil.getNoByString(pokemon));
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                            break;
+                                            case 1: {
+                                                pokemon.setCaptorId(CaptorUtil.MY_CAPTOR_ID);
+                                                PokemonFirebaseDB db = PokemonFirebaseDB.getInstance(context);
+                                                db.add(pokemon);
+
+                                                Toast.makeText(context, pokemon.getName() + "をうばった", Toast.LENGTH_SHORT).show();
                                             }
                                             break;
                                             default:
